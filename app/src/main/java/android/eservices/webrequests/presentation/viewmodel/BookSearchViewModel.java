@@ -1,25 +1,33 @@
 package android.eservices.webrequests.presentation.viewmodel;
 
+import android.eservices.webrequests.data.api.model.BookSearchResponse;
+import android.eservices.webrequests.data.repository.bookdisplay.BookDisplayDataRepository;
 import android.eservices.webrequests.presentation.bookdisplay.search.adapter.BookViewItem;
 import android.eservices.webrequests.presentation.bookdisplay.search.mapper.BookToViewModelMapper;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+
+import static android.content.ContentValues.TAG;
 
 public class BookSearchViewModel extends ViewModel {
-    //private BookDisplayRepository bookDisplayRepository;
+    private BookDisplayDataRepository bookDisplayRepository;
     private CompositeDisposable compositeDisposable;
     private BookToViewModelMapper bookToViewModelMapper;
 
-    /*public BookSearchViewModel(BookDisplayRepository bookDisplayRepository) {
-        this.bookDisplayRepository = bookDisplayRepository;
+    public BookSearchViewModel(BookDisplayDataRepository bookDisplayDataRepository) {
+        this.bookDisplayRepository = bookDisplayDataRepository;
         this.compositeDisposable = new CompositeDisposable();
         this.bookToViewModelMapper = new BookToViewModelMapper();
-    }*/
+    }
 
     private MutableLiveData<List<BookViewItem>> books = new MutableLiveData<List<BookViewItem>>();
     private MutableLiveData<Boolean> isDataLoading = new MutableLiveData<Boolean>();
@@ -34,9 +42,9 @@ public class BookSearchViewModel extends ViewModel {
 
     //TODO : handle loader
     public void searchBooks(String keywords) {
-        /*isDataLoading.postValue(true);
+        isDataLoading.postValue(true);
         compositeDisposable.clear();
-        compositeDisposable.add(bookDisplayRepository.getBookSearchResponse(keywords)
+        compositeDisposable.add(bookDisplayRepository.getBooksSearchResults(keywords)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<BookSearchResponse>() {
@@ -50,9 +58,11 @@ public class BookSearchViewModel extends ViewModel {
                     public void onError(Throwable e) {
                         // handle the error case
                         //Yet, do not do nothing in this app
+                        //faire ça!
+                        Log.e(TAG, "BookSearchViewModel: ", e);
                         System.out.println(e.toString());
                     }
-                }));*/
+                }));
     }
 
 

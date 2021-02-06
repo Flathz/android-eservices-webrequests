@@ -1,12 +1,10 @@
 package android.eservices.webrequests.presentation.bookdisplay.favorite.fragment;
 
 import android.eservices.webrequests.R;
-import android.eservices.webrequests.data.di.FakeDependencyInjection;
+import android.eservices.webrequests.presentation.bookdisplay.favorite.ViewModel.BookFavoriteViewModel;
 import android.eservices.webrequests.presentation.bookdisplay.favorite.adapter.BookDetailActionInterface;
 import android.eservices.webrequests.presentation.bookdisplay.favorite.adapter.BookDetailAdapter;
-import android.eservices.webrequests.presentation.bookdisplay.favorite.adapter.BookDetailViewItem;
-import android.eservices.webrequests.presentation.viewmodel.BookFavoriteViewModel;
-import android.eservices.webrequests.presentation.viewmodel.Event;
+//import android.eservices.webrequests.presentation.viewmodel.BookFavoriteViewModel;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +13,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 public class FavoriteFragment extends Fragment implements BookDetailActionInterface {
 
@@ -49,7 +43,7 @@ public class FavoriteFragment extends Fragment implements BookDetailActionInterf
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupRecyclerView();
-        registerViewModels();
+        //registerViewModels();
     }
 
     private void registerViewModels() {
@@ -77,6 +71,7 @@ public class FavoriteFragment extends Fragment implements BookDetailActionInterf
             }
         });
     }
+     */
 
     private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
@@ -87,7 +82,7 @@ public class FavoriteFragment extends Fragment implements BookDetailActionInterf
 
     @Override
     public void onRemoveFavorite(String bookId) {
-        bookFavoriteViewModel.removeBookFromFavorites(bookId);
+        //bookFavoriteViewModel.removeBookFromFavorites(bookId);
         System.out.println("Remove book " + bookId);
     }
 

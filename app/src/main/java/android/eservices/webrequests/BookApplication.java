@@ -1,7 +1,7 @@
 package android.eservices.webrequests;
 
 import android.app.Application;
-import android.eservices.webrequests.data.di.FakeDependencyInjection;
+import android.eservices.webrequests.data.repository.bookdisplay.FakeDependencyInjection;
 
 import com.facebook.stetho.Stetho;
 
@@ -13,7 +13,7 @@ import com.facebook.stetho.Stetho;
  */
 public class BookApplication extends Application {
 
-    public static final String API_KEY = "AIzaSyBd1IFgqsRZgDNDCMqycRwNEPehfk2XqkM";
+    public static final String API_KEY = "AIzaSyAKcmqmHHlnPOtw69A4ul_8EX1o7vymhvA";
 
     @Override
     public void onCreate() {

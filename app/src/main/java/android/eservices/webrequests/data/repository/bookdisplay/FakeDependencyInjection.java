@@ -1,10 +1,9 @@
-package android.eservices.webrequests.data.di;
+package android.eservices.webrequests.data.repository.bookdisplay;
 
 import android.content.Context;
-import android.eservices.webrequests.data.api.BookDisplayService;
+import android.eservices.webrequests.data.api.BooksDisplayService;
+import android.eservices.webrequests.data.db.entities.BookEntity;
 import android.eservices.webrequests.data.db.BookDatabase;
-import android.eservices.webrequests.data.repository.bookdisplay.BookDisplayDataRepository;
-import android.eservices.webrequests.data.repository.bookdisplay.BookDisplayRepository;
 import android.eservices.webrequests.data.repository.bookdisplay.local.BookDisplayLocalDataSource;
 import android.eservices.webrequests.data.repository.bookdisplay.mapper.BookToBookEntityMapper;
 import android.eservices.webrequests.data.repository.bookdisplay.remote.BookDisplayRemoteDataSource;
@@ -29,12 +28,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Note that this god object doesn't handle Scopes nor component lifecycles so this really shouldn't be
  * the way to go when you master the craft of your software.
  */
-public class FakeDependencyInjection {
+public class FakeDependencyInjection  {
 
-    private static BookDisplayService bookDisplayService;
+    private static BooksDisplayService bookDisplayService;
     private static Retrofit retrofit;
     private static Gson gson;
-    private static BookDisplayRepository bookDisplayRepository;
+    private static BookDisplayDataRepository bookDisplayRepository;
+    private static BookEntity book;
     private static BookDatabase bookDatabase;
     private static Context applicationContext;
     private static ViewModelFactory viewModelFactory;
@@ -47,20 +47,20 @@ public class FakeDependencyInjection {
     }
 
 
-    public static BookDisplayRepository getBookDisplayRepository() {
+    public static BookDisplayDataRepository getBookDisplayRepository() {
         if (bookDisplayRepository == null) {
             bookDisplayRepository = new BookDisplayDataRepository(
-                    new BookDisplayLocalDataSource(getBookDatabase()),
                     new BookDisplayRemoteDataSource(getBookDisplayService()),
+                    new BookDisplayLocalDataSource(getBookDatabase()),
                     new BookToBookEntityMapper()
             );
         }
         return bookDisplayRepository;
     }
 
-    public static BookDisplayService getBookDisplayService() {
+    public static BooksDisplayService getBookDisplayService() {
         if (bookDisplayService == null) {
-            bookDisplayService = getRetrofit().create(BookDisplayService.class);
+            bookDisplayService = getRetrofit().create(BooksDisplayService.class);
         }
         return bookDisplayService;
     }
@@ -83,6 +83,12 @@ public class FakeDependencyInjection {
         }
         return retrofit;
     }
+
+    public static BooksDisplayService getBookService() {
+        BooksDisplayService service = retrofit.create(BooksDisplayService.class);
+        return service;
+    }
+
 
     public static Gson getGson() {
         if (gson == null) {
